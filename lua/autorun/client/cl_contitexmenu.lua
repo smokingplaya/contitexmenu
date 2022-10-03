@@ -1,6 +1,6 @@
 --[[
 
-    ContitexMenu - Very smart and clever Context Menu, based on DMenu VGUI Element.
+    ContitexMenu - Very awesome Context Menu, based on DMenu VGUI Element.
 
 ]]--
 
@@ -16,10 +16,9 @@ ContitexMenu.Objects = {}
 
 local cfg = ContitexMenu.Config
 
-cfg.BackgroundColor = Color(45, 45, 45) -- Цвет фона
-cfg.TextColor = Color(255, 255, 255) -- Цвет текста
-cfg.SpacerColor = Color(70, 70, 70) -- Цвет спэйсера
-cfg.IconColor = cfg.BackgroundColor -- Цвет иконок (лучше не трогать)
+cfg.BackgroundColor = Color(45, 45, 45) -- Color of background
+cfg.TextColor = Color(255, 255, 255) -- Color of text
+cfg.SpacerColor = Color(70, 70, 70) -- Color of spacer
 
 cfg.SpacerSize = 1 -- Толщина спэйсера в пикселях.
 
@@ -109,10 +108,10 @@ end
 ContitexMenu:New()
     :SetButton(false)
     :SetSubMenu(true)
-    :SetName("Первая кнопка")
+    :SetName("Button1")
     :SetIcon("icon16/tux.png")
     :SetSubMenuTable({
-        [1] = "icon16/sound.png"
+        ["icon16/sound.png"] = "Text1" -- Key = path to icon, value = text
     })
     :SetOnClick(function()
         print "Clicked"
@@ -125,7 +124,7 @@ ContitexMenu:New()
     :SetSpacer(true)
 
 ContitexMenu:New()
-    :SetName("Первая кнопка")
+    :SetName("Button2")
     :SetIcon("icon16/tux.png")
     :SetOnClick(function()
         print "Clicked"
@@ -174,9 +173,7 @@ function ContitexMenu:Open()
                     if v.Icon then
                         button:SetIcon(v.Icon)
                     end
-                end
-
-                continue
+                end; continue
             end
 
             local button = self.Menu:AddOption(v.Name, v.DoClick)
