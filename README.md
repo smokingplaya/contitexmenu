@@ -1,5 +1,6 @@
 # Contitex Menu v1.2
 Contitex Menu - is a new way to create your own Context Menu.
+We create buttons and other objects using meta-tables, which makes the code more beautiful and interesting, as well as clearer.
 
 ### How to create button?
 ```
