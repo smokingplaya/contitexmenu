@@ -116,7 +116,9 @@ function object:SetIcon(str)
 end
 
 --[[
-    Buttons creation zone
+    Buttons creation zone.
+
+    Build the context menu of your dreams right here!
 ]]--
 
 ContitexMenu:New()
@@ -126,7 +128,7 @@ ContitexMenu:New()
     :SetSubMenuTable({
         ["icon16/sound.png"] = "Text1" -- Key = path to icon, value = text
     })
-    :SetOnClick(function()
+    :SetOnClick(function(text)
         print "Click!"
     end)
     :SetVisible(function()
