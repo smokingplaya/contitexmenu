@@ -120,7 +120,6 @@ end
 ]]--
 
 ContitexMenu:New()
-    :SetButton(false)
     :SetSubMenu(true)
     :SetName("Button1")
     :SetIcon("icon16/tux.png")
@@ -128,7 +127,7 @@ ContitexMenu:New()
         ["icon16/sound.png"] = "Text1" -- Key = path to icon, value = text
     })
     :SetOnClick(function()
-        print "Clicked"
+        print "Click!"
     end)
     :SetVisible(function()
         return Yes
@@ -141,7 +140,7 @@ ContitexMenu:New()
     :SetName("Button2")
     :SetIcon("icon16/tux.png")
     :SetOnClick(function()
-        print "Clicked"
+        print "Click!"
     end)
     :SetVisible(function()
         return Yes
@@ -152,7 +151,7 @@ ContitexMenu:New()
 */
 
 function ContitexMenu:Open()
-    timer.Simple(0, function() -- todo: rewrite this
+    timer.Simple(0, function() -- todo: remove this
         self.Menu = DermaMenu()
         self.Menu:SetMaxHeight(ScrW()*0.8)
         self.Menu.Paint = function(self, w, h)
@@ -179,7 +178,9 @@ function ContitexMenu:Open()
 
                 local method = v.SubMenuTable[1] and ipairs or pairs
                 for key, val in method(v.SubMenuTable) do
-                    local button = submenu:AddOption(v.Name, v.DoClick)
+                    local button = submenu:AddOption(v.Name, function()
+                        v.DoClick(val)
+                    end)
                     button:SetTextColor(cfg.TextColor)
                     button:SetFont("ContitexMenuFont")
                     button.Paint = self.Menu.Paint
