@@ -2,6 +2,11 @@
 Contitex Menu - is a new way to create your own Context Menu.
 We create buttons and other objects using meta-tables, which makes the code more beautiful and interesting, as well as clearer.
 
+Also, you can edit colors, or fonts of Context Menu on 20-25 lines.
+
+If you wanna create object, create it on 123 line.
+You also can delete already created objects.
+
 ### How to create button?
 ```
 ContitexMenu:New()
