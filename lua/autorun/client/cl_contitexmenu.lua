@@ -1,10 +1,11 @@
 --[[
 
     ContitexMenu - Very awesome Context Menu, based on DMenu VGUI Element.
+    vers 1.1
 
 ]]--
 
-local Yes, No = true, false -- lol
+local Yes, No = true, false -- don't ask
 
 ContitexMenu = {}
 ContitexMenu.Config = {}
@@ -20,10 +21,8 @@ cfg.BackgroundColor = Color(45, 45, 45) -- Color of background
 cfg.TextColor = Color(255, 255, 255) -- Color of text
 cfg.SpacerColor = Color(70, 70, 70) -- Color of spacer
 
-cfg.SpacerSize = 1 -- Толщина спэйсера в пикселях.
-
-cfg.Font = "Montserrat" -- Шрифт
-cfg.FontSize = 16 -- Размер шрифта
+cfg.Font = "Montserrat" -- Font
+cfg.FontSize = 16 -- Size of font
 
 --[[
     Font
@@ -47,8 +46,8 @@ function ContitexMenu:New()
         IsButton = Yes,
         IsSubMenu = No,
         IsSpacer = No,
-        Icon = "icon16/tux.png",
-        Name = "",
+        Icon = "icon16/page.png",
+        Name = "Please, set name to me!",
         SubMenuTable = {},
         IsVisible = function() return Yes end,
         DoClick = function(text) end
@@ -68,16 +67,31 @@ end
 
 function object:SetButton(bool)
     self.IsButton = bool
+    if bool then
+        self.IsSpacer = false
+        self.IsSubMenu = false
+    end
+    
     return self
 end
 
 function object:SetSpacer(bool)
     self.IsSpacer = bool
+    if bool then
+        self.IsButton = false
+        self.IsSubMenu = false
+    end
+    
     return self
 end
 
 function object:SetSubMenu(bool)
     self.IsSubMenu = bool
+    if bool then
+        self.IsButton = false
+        self.IsSpacer = false
+    end
+    
     return self
 end
 
@@ -102,7 +116,7 @@ function object:SetIcon(str)
 end
 
 --[[
-    Object Creation Zone
+    Buttons creation zone
 ]]--
 
 ContitexMenu:New()
@@ -138,7 +152,7 @@ ContitexMenu:New()
 */
 
 function ContitexMenu:Open()
-    timer.Simple(0, function()
+    timer.Simple(0, function() -- todo: rewrite this
         self.Menu = DermaMenu()
         self.Menu:SetMaxHeight(ScrW()*0.8)
         self.Menu.Paint = function(self, w, h)
@@ -164,14 +178,14 @@ function ContitexMenu:Open()
                 end
 
                 local method = v.SubMenuTable[1] and ipairs or pairs
-                for _, val in method(v.SubMenuTable) do
+                for key, val in method(v.SubMenuTable) do
                     local button = submenu:AddOption(v.Name, v.DoClick)
                     button:SetTextColor(cfg.TextColor)
                     button:SetFont("ContitexMenuFont")
                     button.Paint = self.Menu.Paint
 
-                    if v.Icon then
-                        button:SetIcon(v.Icon)
+                    if isstring(key) then
+                        button:SetIcon(key)
                     end
                 end; continue
             end
